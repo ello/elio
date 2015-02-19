@@ -1,0 +1,55 @@
+GIT
+  remote: git://github.com/modeset/bitbot.git
+  revision: a3f581e8f62d03e56bf483646cb4352f534f6855
+  specs:
+    bitbot (0.0.1)
+      activesupport (>= 4.1.6)
+      rack
+      redis
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    activesupport (4.2.0)
+      i18n (~> 0.7)
+      json (~> 1.7, >= 1.7.7)
+      minitest (~> 5.1)
+      thread_safe (~> 0.3, >= 0.3.4)
+      tzinfo (~> 1.1)
+    diff-lcs (1.2.5)
+    i18n (0.7.0)
+    json (1.8.2)
+    kgio (2.9.3)
+    minitest (5.5.1)
+    rack (1.5.2)
+    raindrops (0.13.0)
+    redis (3.2.1)
+    rspec (3.2.0)
+      rspec-core (~> 3.2.0)
+      rspec-expectations (~> 3.2.0)
+      rspec-mocks (~> 3.2.0)
+    rspec-core (3.2.0)
+      rspec-support (~> 3.2.0)
+    rspec-expectations (3.2.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.2.0)
+    rspec-mocks (3.2.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.2.0)
+    rspec-support (3.2.1)
+    thread_safe (0.3.4)
+    tzinfo (1.2.2)
+      thread_safe (~> 0.1)
+    unicorn (4.8.3)
+      kgio (~> 2.6)
+      rack
+      raindrops (~> 0.7)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  bitbot!
+  rack
+  rspec
+  unicorn
