@@ -1,4 +1,4 @@
-require 'elio'
+require 'spec_helper'
 
 describe GithubResponder do
   describe 'listing open pull requests' do
