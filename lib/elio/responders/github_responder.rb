@@ -6,18 +6,23 @@ class GithubResponder < Bitbot::Responder
     respond_with "I don't know how to do this yet"
   end
 
-  class PullRequest
-    def self.all
-      new.all
+  class PullRequestCollection
+    include Enumerable
+
+    def self.fetch
+      new.tap(&:fetch)
     end
 
     def initialize
-      # @client = Octokit::Client.new(:access_token => ENV['ELIO_GITHUB_OAUTH_TOKEN'])
-      @client = Octokit::Client.new(:access_token => '01c8290e5c7e87b731c84f8843e36ab93bf6dcf5')
+      @client = Octokit::Client.new(:access_token => ENV['ELIO_GITHUB_OAUTH_TOKEN'])
     end
 
-    def all
-      client.issues
+    def fetch
+      @issues = @client.issues(nil, filter: 'all')
+    end
+
+    def each(&block)
+      @issues.each(&block)
     end
   end
 end

@@ -1,5 +1,11 @@
-require 'rspec/autorun'
-require 'webmock'
+require 'elio'
+
+require 'pry'
+require 'rspec'
+require 'webmock/rspec'
 require 'vcr'
 
-require 'elio'
+VCR.configure do |config|
+  config.cassette_library_dir = "spec/fixtures/vcr_cassettes"
+  config.hook_into :webmock
+end

@@ -6,9 +6,13 @@ gem 'rack'
 gem 'bitbot', github: 'modeset/bitbot'
 gem 'unicorn'
 gem 'octokit'
-gem 'webmock'
-gem 'vcr'
+
+group :development, :test do
+  gem 'pry'
+end
 
 group :test do
   gem 'rspec'
+  gem 'webmock'
+  gem 'vcr'
 end

@@ -17,6 +17,7 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.3.6)
+    coderay (1.1.0)
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
     diff-lcs (1.2.5)
@@ -25,10 +26,15 @@ GEM
     i18n (0.7.0)
     json (1.8.2)
     kgio (2.9.3)
+    method_source (0.8.2)
     minitest (5.5.1)
     multipart-post (2.0.0)
     octokit (3.7.1)
       sawyer (~> 0.6.0, >= 0.5.3)
+    pry (0.10.1)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
     rack (1.5.2)
     raindrops (0.13.0)
     redis (3.2.1)
@@ -49,6 +55,7 @@ GEM
     sawyer (0.6.0)
       addressable (~> 2.3.5)
       faraday (~> 0.8, < 0.10)
+    slop (3.6.0)
     thread_safe (0.3.4)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
@@ -67,6 +74,7 @@ PLATFORMS
 DEPENDENCIES
   bitbot!
   octokit
+  pry
   rack
   rspec
   unicorn
