@@ -5,6 +5,9 @@ module Elio
     class GithubResponder < Bitbot::Responder
       category 'Development'
       help 'pulls', description: 'Finds open PRs with the absence of "LGTM" or "looks good to me" in a comment.'
+      help 'add repo', description: 'Add a repository to the list of repos I check for open PRs. e.g. "add repo modeset/bitbot"'
+      help 'axe repo', description: 'Remove a repository from list of repos I check for open PRs. e.g. "axe repo modeset/bitbot"'
+      help 'repos', description: 'List repos I check for open PRs.'
 
       route :pulls, /^pulls$/ do
         pulls_to_review = PullRequestCollection.
@@ -24,19 +27,23 @@ module Elio
           }
         end
 
-        respond_with message
+        respond_with message.to_h
       end
 
-      route :add_repo, /^add repo (\w+)$/ do |name|
+      route :add_repo, /^add repo (.+)$/ do |name|
         redis.add_repo(name)
 
         respond_with "Okay #{message.user_name}, I added '#{name}' for checking open PRs."
       end
 
-      route :axe_repo, /^axe repo (\w+)$/ do |name|
+      route :axe_repo, /^axe repo (.+)$/ do |name|
         redis.remove_repo(name)
 
         respond_with "Okay #{message.user_name}, I removed '#{name}' from the open PR check list."
+      end
+
+      route :repos, /^repos$/ do
+        respond_with "```\n#{redis.get_repos.join("\n")}\n```"
       end
 
       def redis
@@ -75,7 +82,7 @@ module Elio
 
         class PullRequest
           extend Forwardable
-          def_delegators :@attributes, :repository, :pull_request, :number, :title
+          def_delegators :@attributes, :repository, :pull_request, :number, :title, :user
 
           def initialize(attributes, client)
             @attributes, @client = attributes, client
@@ -99,6 +106,10 @@ module Elio
             pull_request.html_url
           end
 
+          def author
+            user.login
+          end
+
           private
 
           class Comment
@@ -114,25 +125,25 @@ module Elio
             end
           end
         end
+      end
 
-        class RedisHelper
-          REPOS_KEY = 'elio:repos'
+      class RedisHelper
+        REPOS_KEY = 'elio:repos'
 
-          def initialize(connection)
-            @connection = connection
-          end
+        def initialize(connection)
+          @connection = connection
+        end
 
-          def get_repos
-            @connection.smembers(REPOS_KEY)
-          end
+        def get_repos
+          @connection.smembers(REPOS_KEY)
+        end
 
-          def add_repo(name)
-            @connection.sadd(REPOS_KEY, name)
-          end
+        def add_repo(name)
+          @connection.sadd(REPOS_KEY, name)
+        end
 
-          def remove_repo(name)
-            @connection.srem(REPOS_KEY, name)
-          end
+        def remove_repo(name)
+          @connection.srem(REPOS_KEY, name)
         end
       end
     end
