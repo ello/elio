@@ -27,10 +27,14 @@ class GithubResponder < Bitbot::Responder
 
   route :add_repo, /^add repo (\w+)$/ do |name|
     redis.add_repo(name)
+
+    respond_with "Okay #{message.user_name}, I added '#{name}' for checking open PRs."
   end
 
   route :axe_repo, /^axe repo (\w+)$/ do |name|
     redis.remove_repo(name)
+
+    respond_with "Okay #{message.user_name}, I removed '#{name}' from the open PR check list."
   end
 
   def redis
