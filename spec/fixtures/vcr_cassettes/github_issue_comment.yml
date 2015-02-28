@@ -1,0 +1,84 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.github.com/repos/ello/ello/issues/678/comments
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/vnd.github.v3+json
+      User-Agent:
+      - Octokit Ruby Gem 3.7.1
+      Content-Type:
+      - application/json
+      Authorization:
+      - token 9c6803f044b8d971cde35d4b748bb4897aebfbdf
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - GitHub.com
+      Date:
+      - Sat, 28 Feb 2015 21:18:02 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Status:
+      - 200 OK
+      X-Ratelimit-Limit:
+      - '5000'
+      X-Ratelimit-Remaining:
+      - '4993'
+      X-Ratelimit-Reset:
+      - '1425160152'
+      Cache-Control:
+      - private, max-age=60, s-maxage=60
+      Etag:
+      - W/"2b78b2de9b27f43fb626e6e78b15d0d5"
+      X-Oauth-Scopes:
+      - delete_repo, gist, notifications, repo, user, write:org, write:public_key,
+        write:repo_hook
+      X-Accepted-Oauth-Scopes:
+      - ''
+      Vary:
+      - Accept, Authorization, Cookie, X-GitHub-OTP
+      - Accept-Encoding
+      X-Github-Media-Type:
+      - github.v3; format=json
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - deny
+      Content-Security-Policy:
+      - default-src 'none'
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Expose-Headers:
+      - ETag, Link, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset,
+        X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Github-Request-Id:
+      - 18086629:0FF5:28A5425C:54F2308A
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubdomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      X-Served-By:
+      - 065b43cd9674091fec48a221b420fbb3
+    body:
+      encoding: ASCII-8BIT
+      string: '[{"url":"https://api.github.com/repos/ello/ello/issues/comments/76267353","html_url":"https://github.com/ello/ello/pull/678#issuecomment-76267353","issue_url":"https://api.github.com/repos/ello/ello/issues/678","id":76267353,"user":{"login":"jtrim","id":170541,"avatar_url":"https://avatars.githubusercontent.com/u/170541?v=3","gravatar_id":"","url":"https://api.github.com/users/jtrim","html_url":"https://github.com/jtrim","followers_url":"https://api.github.com/users/jtrim/followers","following_url":"https://api.github.com/users/jtrim/following{/other_user}","gists_url":"https://api.github.com/users/jtrim/gists{/gist_id}","starred_url":"https://api.github.com/users/jtrim/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/jtrim/subscriptions","organizations_url":"https://api.github.com/users/jtrim/orgs","repos_url":"https://api.github.com/users/jtrim/repos","events_url":"https://api.github.com/users/jtrim/events{/privacy}","received_events_url":"https://api.github.com/users/jtrim/received_events","type":"User","site_admin":false},"created_at":"2015-02-26T20:43:05Z","updated_at":"2015-02-26T20:43:05Z","body":"LGTM"},{"url":"https://api.github.com/repos/ello/ello/issues/comments/76338079","html_url":"https://github.com/ello/ello/pull/678#issuecomment-76338079","issue_url":"https://api.github.com/repos/ello/ello/issues/678","id":76338079,"user":{"login":"mikepack","id":247668,"avatar_url":"https://avatars.githubusercontent.com/u/247668?v=3","gravatar_id":"","url":"https://api.github.com/users/mikepack","html_url":"https://github.com/mikepack","followers_url":"https://api.github.com/users/mikepack/followers","following_url":"https://api.github.com/users/mikepack/following{/other_user}","gists_url":"https://api.github.com/users/mikepack/gists{/gist_id}","starred_url":"https://api.github.com/users/mikepack/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/mikepack/subscriptions","organizations_url":"https://api.github.com/users/mikepack/orgs","repos_url":"https://api.github.com/users/mikepack/repos","events_url":"https://api.github.com/users/mikepack/events{/privacy}","received_events_url":"https://api.github.com/users/mikepack/received_events","type":"User","site_admin":false},"created_at":"2015-02-27T05:26:47Z","updated_at":"2015-02-27T05:26:47Z","body":":+1:
+        "},{"url":"https://api.github.com/repos/ello/ello/issues/comments/76419430","html_url":"https://github.com/ello/ello/pull/678#issuecomment-76419430","issue_url":"https://api.github.com/repos/ello/ello/issues/678","id":76419430,"user":{"login":"larquin","id":96180,"avatar_url":"https://avatars.githubusercontent.com/u/96180?v=3","gravatar_id":"","url":"https://api.github.com/users/larquin","html_url":"https://github.com/larquin","followers_url":"https://api.github.com/users/larquin/followers","following_url":"https://api.github.com/users/larquin/following{/other_user}","gists_url":"https://api.github.com/users/larquin/gists{/gist_id}","starred_url":"https://api.github.com/users/larquin/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/larquin/subscriptions","organizations_url":"https://api.github.com/users/larquin/orgs","repos_url":"https://api.github.com/users/larquin/repos","events_url":"https://api.github.com/users/larquin/events{/privacy}","received_events_url":"https://api.github.com/users/larquin/received_events","type":"User","site_admin":false},"created_at":"2015-02-27T16:09:08Z","updated_at":"2015-02-27T16:09:08Z","body":"Merging
+        this as the error was JS test related- same Teaspoon error that @jejacks0n
+        resolved yesterday. "}]'
+    http_version: 
+  recorded_at: Sat, 28 Feb 2015 21:18:02 GMT
+recorded_with: VCR 2.9.3

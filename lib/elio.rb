@@ -1,5 +1,6 @@
-require 'bitbot'
-require 'octokit'
+require 'bundler'
+Bundler.require(:default)
+
 require 'pathname'
 
 module Elio
