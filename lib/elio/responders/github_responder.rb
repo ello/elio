@@ -1,6 +1,6 @@
 require 'forwardable'
 
-class GithubResponder < Bitbot::Responder
+class Elio::GithubResponder < Bitbot::Responder
   category 'Development'
   help 'pulls', description: 'Finds open PRs with the absence of "LGTM" or "looks good to me" in a comment.'
 

@@ -18,7 +18,7 @@ Bitbot.configure do |config|
   config.redis_connection = Redis.new(url: ENV['REDIS_URL'] || 'redis://127.0.0.1:6379')
 
   config.locales = Dir[root.join('config/locales/**/*.yml').to_s]
-  config.responders = Dir[root.join('lib/elio/responders/**/*_resonder.rb')]
+  config.responders = Dir[root.join('lib/elio/responders/**/*_responder.rb')]
 
   config.listener :web do |listener|
     listener.token = ENV['BITBOT_OUTGOING_WEBHOOK_TOKEN'] || 'token'
