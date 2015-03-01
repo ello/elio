@@ -3,7 +3,7 @@ require 'forwardable'
 module Elio
   module Responders
     class GithubResponder < Bitbot::Responder
-      category 'Development'
+      category 'Github'
       help 'pulls', description: 'Finds open PRs with the absence of "LGTM" or "looks good to me" in a comment.'
       help 'add repo', description: 'Add a repository to the list of repos I check for open PRs. e.g. "add repo modeset/bitbot"'
       help 'axe repo', description: 'Remove a repository from list of repos I check for open PRs. e.g. "axe repo modeset/bitbot"'
