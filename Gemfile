@@ -7,6 +7,14 @@ gem 'bitbot', github: 'modeset/bitbot'
 gem 'unicorn'
 gem 'octokit'
 
+group :development, :test do
+  gem 'pry'
+end
+
 group :test do
   gem 'rspec'
+  gem 'webmock'
+  gem 'vcr'
+  gem 'multi_json'
+  gem 'yajl-ruby'
 end
