@@ -8,26 +8,55 @@ module Elio
       help 'add repo', description: 'Add a repository to the list of repos I check for open PRs. e.g. "add repo modeset/bitbot"'
       help 'axe repo', description: 'Remove a repository from list of repos I check for open PRs. e.g. "axe repo modeset/bitbot"'
       help 'repos', description: 'List repos I check for open PRs.'
+      help 'reviewed words', description: 'List the words I use to check PRs for review status.'
+      help 'add reviewed word', description: 'Add a "looks good" word.'
+      help 'remove reviewed word', description: 'Remove a "looks good" word.'
+
+      route :reviewed_words, /^reviewed words$/ do
+        if redis.reviewed_words.nil? || redis.reviewed_words.empty?
+          respond_with "Sorry #{message.user_name}, I don't currently know about any words. Add some with 'add reviewed word <WORD>'"
+        else
+          respond_with "#{message.user_name} - these are the words I look for to tell if a PR has been reviewed:\n```#{redis.reviewed_words.join("\n")}```"
+        end
+      end
+
+      route :add_reviewed_word, /^add reviewed word (.*)$/ do |word|
+        redis.add_reviewed_word(word)
+
+        respond_with "Okay #{message.user_name}, I added '#{word}' to the list."
+      end
+
+      route :remove_reviewed_word, /^remove reviewed word (.*)$/ do |word|
+        redis.remove_reviewed_word(word)
+
+        respond_with "Okay #{message.user_name}, I removed '#{word}' from the list."
+      end
 
       route :pulls, /^pulls$/ do
-        pulls_to_review = PullRequestCollection.
-          fetch(redis.get_repos).
-          reject(&:reviewed?)
+        if redis.reviewed_words.nil? || redis.reviewed_words.empty?
+          respond_with "Sorry #{message.user_name}, I don't know what to look for in PR comments. Add some words with 'add reviewed word <WORD>'"
+        elsif redis.get_repos.nil? || redis.get_repos.empty?
+          respond_with "Sorry #{message.user_name}, I don't know about any repositories yet. Add some with 'add repo <OWNER>/<REPO>'"
+        else
+          pulls_to_review = PullRequestCollection.
+            fetch(redis.get_repos).
+            reject { |pr| pr.reviewed?(redis.reviewed_words) }
 
-        message = Bitbot::Message.new(
-          text: "Open PRs:"
-        )
+          message = Bitbot::Message.new(
+            text: "Open PRs:"
+          )
 
-        message.attachments = pulls_to_review.map do |pr|
-          {
-            title: pr.title,
-            title_link: pr.url,
-            color: '#afafaf',
-            text: "by #{pr.author}"
-          }
+          message.attachments = pulls_to_review.map do |pr|
+            {
+              title: pr.title,
+              title_link: pr.url,
+              color: '#afafaf',
+              text: "by #{pr.author} on _#{pr.repo_name}_"
+            }
+          end
+
+          respond_with message.to_h
         end
-
-        respond_with message.to_h
       end
 
       route :add_repo, /^add repo (.+)$/ do |name|
@@ -66,9 +95,11 @@ module Elio
           return false if @repo_names.nil? || @repo_names.empty?
 
           @pull_requests ||= begin
-            pull_requests = @client.issues(nil, filter: 'all').map do |issue|
-              PullRequest.new(issue, @client)
-            end
+            pull_requests = @client.issues(nil, filter: 'all').
+              select(&:pull_request).
+              map do |issue|
+                PullRequest.new(issue, @client)
+              end
             pull_requests.reject! { |issue| !@repo_names.include?(issue.repo_name) }
             pull_requests
           end
@@ -94,8 +125,8 @@ module Elio
             end
           end
 
-          def reviewed?
-            comments.any?(&:lgtm?)
+          def reviewed?(reviewed_words)
+            comments.any? { |c| c.lgtm?(reviewed_words) }
           end
 
           def repo_name
@@ -120,8 +151,10 @@ module Elio
               @attributes = attributes
             end
 
-            def lgtm?
-              !!(body =~ /lgtm/i)
+            def lgtm?(reviewed_words)
+              reviewed_words.any? do |word|
+                !!(body =~ /#{word}/i)
+              end
             end
           end
         end
@@ -129,6 +162,7 @@ module Elio
 
       class RedisHelper
         REPOS_KEY = 'elio:repos'
+        REVIEWED_WORDS_KEY = 'elio:reviewed_words'
 
         def initialize(connection)
           @connection = connection
@@ -144,6 +178,18 @@ module Elio
 
         def remove_repo(name)
           @connection.srem(REPOS_KEY, name)
+        end
+
+        def reviewed_words
+          @connection.smembers(REVIEWED_WORDS_KEY)
+        end
+
+        def add_reviewed_word(trigger)
+          @connection.sadd(REVIEWED_WORDS_KEY, trigger)
+        end
+
+        def remove_reviewed_word(trigger)
+          @connection.srem(REVIEWED_WORDS_KEY, trigger)
         end
       end
     end
