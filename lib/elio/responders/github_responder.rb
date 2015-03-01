@@ -48,10 +48,10 @@ module Elio
 
           message.attachments = pulls_to_review.map do |pr|
             {
-              title: pr.title,
+              title: "#{pr.repo_name} ##{pr.number}: #{pr.title}",
               title_link: pr.url,
               color: '#afafaf',
-              text: "by #{pr.author} on _#{pr.repo_name}_"
+              text: "by #{pr.author}"
             }
           end
 
