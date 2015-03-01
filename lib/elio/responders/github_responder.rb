@@ -43,7 +43,7 @@ module Elio
             reject { |pr| pr.reviewed?(redis.reviewed_words) }
 
           message = Bitbot::Message.new(
-            text: "Open PRs:"
+            text: "PRs in need of review:"
           )
 
           message.attachments = pulls_to_review.map do |pr|
