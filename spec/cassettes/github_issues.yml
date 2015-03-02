@@ -1,0 +1,344 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.github.com/issues?filter=all&state=open
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/vnd.github.v3+json
+      User-Agent:
+      - Octokit Ruby Gem 3.7.1
+      Content-Type:
+      - application/json
+      Authorization:
+      - token <%= auth %>
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - GitHub.com
+      Date:
+      - Sun, 01 Mar 2015 18:59:23 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Status:
+      - 200 OK
+      X-Ratelimit-Limit:
+      - '5000'
+      X-Ratelimit-Remaining:
+      - '4992'
+      X-Ratelimit-Reset:
+      - '1425236725'
+      Cache-Control:
+      - private, max-age=60, s-maxage=60
+      Etag:
+      - W/"56c617403308e36b25732d3422c8b06d"
+      X-Oauth-Scopes:
+      - delete_repo, gist, notifications, repo, user, write:org, write:public_key,
+        write:repo_hook
+      X-Accepted-Oauth-Scopes:
+      - ''
+      Vary:
+      - Accept, Authorization, Cookie, X-GitHub-OTP
+      - Accept-Encoding
+      X-Github-Media-Type:
+      - github.v3; format=json
+      Link:
+      - <https://api.github.com/issues?filter=all&state=open&page=2>; rel="next",
+        <https://api.github.com/issues?filter=all&state=open&page=2>; rel="last"
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - deny
+      Content-Security-Policy:
+      - default-src 'none'
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Expose-Headers:
+      - ETag, Link, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset,
+        X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Github-Request-Id:
+      - 18086629:5129:F02D5E:54F3618A
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubdomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      X-Served-By:
+      - a241e1a8264a6ace03db946c85b92db3
+    body:
+      encoding: ASCII-8BIT
+      string: >
+        [
+          {
+            "url": "https://api.github.com/repos/<%= repo_name %>/issues/2",
+            "labels_url": "https://api.github.com/repos/<%= repo_name %>/issues/2/labels{/name}",
+            "comments_url": "https://api.github.com/repos/<%= repo_name %>/issues/2/comments",
+            "events_url": "https://api.github.com/repos/<%= repo_name %>/issues/2/events",
+            "html_url": "https://github.com/<%= repo_name %>/issues/2",
+            "id": 77777777,
+            "number": 2,
+            "title": "Issue Without PR",
+            "user": {
+              "login": "exampleuser",
+              "id": 888888,
+              "avatar_url": "https://avatars.githubusercontent.com/u/999999?v=3",
+              "gravatar_id": "",
+              "url": "https://api.github.com/users/exampleuser",
+              "html_url": "https://github.com/exampleuser",
+              "followers_url": "https://api.github.com/users/exampleuser/followers",
+              "following_url": "https://api.github.com/users/exampleuser/following{/other_user}",
+              "gists_url": "https://api.github.com/users/exampleuser/gists{/gist_id}",
+              "starred_url": "https://api.github.com/users/exampleuser/starred{/owner}{/repo}",
+              "subscriptions_url": "https://api.github.com/users/exampleuser/subscriptions",
+              "organizations_url": "https://api.github.com/users/exampleuser/orgs",
+              "repos_url": "https://api.github.com/users/exampleuser/repos",
+              "events_url": "https://api.github.com/users/exampleuser/events{/privacy}",
+              "received_events_url": "https://api.github.com/users/exampleuser/received_events",
+              "type": "User",
+              "site_admin": false
+            },
+            "labels": [ ],
+            "state": "open",
+            "locked": false,
+            "assignee": null,
+            "milestone": null,
+            "comments": 0,
+            "created_at": "2015-02-20T14:56:18Z",
+            "updated_at": "2015-02-20T14:56:18Z",
+            "closed_at": null,
+            "repository": {
+              "id": 66666666,
+              "name": "elio",
+              "full_name": "<%= repo_name %>",
+              "owner": {
+                "login": "exampleorg",
+                "id": 5555555,
+                "avatar_url": "https://avatars.githubusercontent.com/u/4444444?v=3",
+                "gravatar_id": "",
+                "url": "https://api.github.com/users/exampleorg",
+                "html_url": "https://github.com/exampleorg",
+                "followers_url": "https://api.github.com/users/exampleorg/followers",
+                "following_url": "https://api.github.com/users/exampleorg/following{/other_user}",
+                "gists_url": "https://api.github.com/users/exampleorg/gists{/gist_id}",
+                "starred_url": "https://api.github.com/users/exampleorg/starred{/owner}{/repo}",
+                "subscriptions_url": "https://api.github.com/users/exampleorg/subscriptions",
+                "organizations_url": "https://api.github.com/users/exampleorg/orgs",
+                "repos_url": "https://api.github.com/users/exampleorg/repos",
+                "events_url": "https://api.github.com/users/exampleorg/events{/privacy}",
+                "received_events_url": "https://api.github.com/users/exampleorg/received_events",
+                "type": "Organization",
+                "site_admin": false
+              },
+              "private": true,
+              "html_url": "https://github.com/<%= repo_name %>",
+              "description": "Utility bot for exampleorg.",
+              "fork": false,
+              "url": "https://api.github.com/repos/<%= repo_name %>",
+              "forks_url": "https://api.github.com/repos/<%= repo_name %>/forks",
+              "keys_url": "https://api.github.com/repos/<%= repo_name %>/keys{/key_id}",
+              "collaborators_url": "https://api.github.com/repos/<%= repo_name %>/collaborators{/collaborator}",
+              "teams_url": "https://api.github.com/repos/<%= repo_name %>/teams",
+              "hooks_url": "https://api.github.com/repos/<%= repo_name %>/hooks",
+              "issue_events_url": "https://api.github.com/repos/<%= repo_name %>/issues/events{/number}",
+              "events_url": "https://api.github.com/repos/<%= repo_name %>/events",
+              "assignees_url": "https://api.github.com/repos/<%= repo_name %>/assignees{/user}",
+              "branches_url": "https://api.github.com/repos/<%= repo_name %>/branches{/branch}",
+              "tags_url": "https://api.github.com/repos/<%= repo_name %>/tags",
+              "blobs_url": "https://api.github.com/repos/<%= repo_name %>/git/blobs{/sha}",
+              "git_tags_url": "https://api.github.com/repos/<%= repo_name %>/git/tags{/sha}",
+              "git_refs_url": "https://api.github.com/repos/<%= repo_name %>/git/refs{/sha}",
+              "trees_url": "https://api.github.com/repos/<%= repo_name %>/git/trees{/sha}",
+              "statuses_url": "https://api.github.com/repos/<%= repo_name %>/statuses/{sha}",
+              "languages_url": "https://api.github.com/repos/<%= repo_name %>/languages",
+              "stargazers_url": "https://api.github.com/repos/<%= repo_name %>/stargazers",
+              "contributors_url": "https://api.github.com/repos/<%= repo_name %>/contributors",
+              "subscribers_url": "https://api.github.com/repos/<%= repo_name %>/subscribers",
+              "subscription_url": "https://api.github.com/repos/<%= repo_name %>/subscription",
+              "commits_url": "https://api.github.com/repos/<%= repo_name %>/commits{/sha}",
+              "git_commits_url": "https://api.github.com/repos/<%= repo_name %>/git/commits{/sha}",
+              "comments_url": "https://api.github.com/repos/<%= repo_name %>/comments{/number}",
+              "issue_comment_url": "https://api.github.com/repos/<%= repo_name %>/issues/comments{/number}",
+              "contents_url": "https://api.github.com/repos/<%= repo_name %>/contents/{+path}",
+              "compare_url": "https://api.github.com/repos/<%= repo_name %>/compare/{base}...{head}",
+              "merges_url": "https://api.github.com/repos/<%= repo_name %>/merges",
+              "archive_url": "https://api.github.com/repos/<%= repo_name %>/{archive_format}{/ref}",
+              "downloads_url": "https://api.github.com/repos/<%= repo_name %>/downloads",
+              "issues_url": "https://api.github.com/repos/<%= repo_name %>/issues{/number}",
+              "pulls_url": "https://api.github.com/repos/<%= repo_name %>/pulls{/number}",
+              "milestones_url": "https://api.github.com/repos/<%= repo_name %>/milestones{/number}",
+              "notifications_url": "https://api.github.com/repos/<%= repo_name %>/notifications{?since,all,participating}",
+              "labels_url": "https://api.github.com/repos/<%= repo_name %>/labels{/name}",
+              "releases_url": "https://api.github.com/repos/<%= repo_name %>/releases{/id}",
+              "created_at": "2015-02-19T02:10:18Z",
+              "updated_at": "2015-02-19T15:06:30Z",
+              "pushed_at": "2015-03-01T00:21:25Z",
+              "git_url": "git://github.com/<%= repo_name %>.git",
+              "ssh_url": "git@github.com:<%= repo_name %>.git",
+              "clone_url": "https://github.com/<%= repo_name %>.git",
+              "svn_url": "https://github.com/<%= repo_name %>",
+              "homepage": null,
+              "size": 148,
+              "stargazers_count": 0,
+              "watchers_count": 0,
+              "language": "Ruby",
+              "has_issues": true,
+              "has_downloads": true,
+              "has_wiki": true,
+              "has_pages": false,
+              "forks_count": 0,
+              "mirror_url": null,
+              "open_issues_count": 2,
+              "forks": 0,
+              "open_issues": 2,
+              "watchers": 0,
+              "default_branch": "master"
+            },
+            "body": ""
+          },
+          {
+            "url": "https://api.github.com/repos/<%= repo_name %>/issues/1",
+            "labels_url": "https://api.github.com/repos/<%= repo_name %>/issues/1/labels{/name}",
+            "comments_url": "https://api.github.com/repos/<%= repo_name %>/issues/1/comments",
+            "events_url": "https://api.github.com/repos/<%= repo_name %>/issues/1/events",
+            "html_url": "https://github.com/<%= repo_name %>/pull/1",
+            "id": 22222222,
+            "number": 1,
+            "title": "Issue w/PR",
+            "user": {
+              "login": "exampleuser",
+              "id": 888888,
+              "avatar_url": "https://avatars.githubusercontent.com/u/999999?v=3",
+              "gravatar_id": "",
+              "url": "https://api.github.com/users/exampleuser",
+              "html_url": "https://github.com/exampleuser",
+              "followers_url": "https://api.github.com/users/exampleuser/followers",
+              "following_url": "https://api.github.com/users/exampleuser/following{/other_user}",
+              "gists_url": "https://api.github.com/users/exampleuser/gists{/gist_id}",
+              "starred_url": "https://api.github.com/users/exampleuser/starred{/owner}{/repo}",
+              "subscriptions_url": "https://api.github.com/users/exampleuser/subscriptions",
+              "organizations_url": "https://api.github.com/users/exampleuser/orgs",
+              "repos_url": "https://api.github.com/users/exampleuser/repos",
+              "events_url": "https://api.github.com/users/exampleuser/events{/privacy}",
+              "received_events_url": "https://api.github.com/users/exampleuser/received_events",
+              "type": "User",
+              "site_admin": false
+            },
+            "labels": [ ],
+            "state": "open",
+            "locked": false,
+            "assignee": null,
+            "milestone": null,
+            "comments": 1,
+            "created_at": "2015-02-20T01:37:07Z",
+            "updated_at": "2015-03-01T00:21:49Z",
+            "closed_at": null,
+            "repository": {
+              "id": 66666666,
+              "name": "elio",
+              "full_name": "<%= repo_name %>",
+              "owner": {
+                "login": "exampleorg",
+                "id": 5555555,
+                "avatar_url": "https://avatars.githubusercontent.com/u/4444444?v=3",
+                "gravatar_id": "",
+                "url": "https://api.github.com/users/exampleorg",
+                "html_url": "https://github.com/exampleorg",
+                "followers_url": "https://api.github.com/users/exampleorg/followers",
+                "following_url": "https://api.github.com/users/exampleorg/following{/other_user}",
+                "gists_url": "https://api.github.com/users/exampleorg/gists{/gist_id}",
+                "starred_url": "https://api.github.com/users/exampleorg/starred{/owner}{/repo}",
+                "subscriptions_url": "https://api.github.com/users/exampleorg/subscriptions",
+                "organizations_url": "https://api.github.com/users/exampleorg/orgs",
+                "repos_url": "https://api.github.com/users/exampleorg/repos",
+                "events_url": "https://api.github.com/users/exampleorg/events{/privacy}",
+                "received_events_url": "https://api.github.com/users/exampleorg/received_events",
+                "type": "Organization",
+                "site_admin": false
+              },
+              "private": true,
+              "html_url": "https://github.com/<%= repo_name %>",
+              "description": "Utility bot for exampleorg.",
+              "fork": false,
+              "url": "https://api.github.com/repos/<%= repo_name %>",
+              "forks_url": "https://api.github.com/repos/<%= repo_name %>/forks",
+              "keys_url": "https://api.github.com/repos/<%= repo_name %>/keys{/key_id}",
+              "collaborators_url": "https://api.github.com/repos/<%= repo_name %>/collaborators{/collaborator}",
+              "teams_url": "https://api.github.com/repos/<%= repo_name %>/teams",
+              "hooks_url": "https://api.github.com/repos/<%= repo_name %>/hooks",
+              "issue_events_url": "https://api.github.com/repos/<%= repo_name %>/issues/events{/number}",
+              "events_url": "https://api.github.com/repos/<%= repo_name %>/events",
+              "assignees_url": "https://api.github.com/repos/<%= repo_name %>/assignees{/user}",
+              "branches_url": "https://api.github.com/repos/<%= repo_name %>/branches{/branch}",
+              "tags_url": "https://api.github.com/repos/<%= repo_name %>/tags",
+              "blobs_url": "https://api.github.com/repos/<%= repo_name %>/git/blobs{/sha}",
+              "git_tags_url": "https://api.github.com/repos/<%= repo_name %>/git/tags{/sha}",
+              "git_refs_url": "https://api.github.com/repos/<%= repo_name %>/git/refs{/sha}",
+              "trees_url": "https://api.github.com/repos/<%= repo_name %>/git/trees{/sha}",
+              "statuses_url": "https://api.github.com/repos/<%= repo_name %>/statuses/{sha}",
+              "languages_url": "https://api.github.com/repos/<%= repo_name %>/languages",
+              "stargazers_url": "https://api.github.com/repos/<%= repo_name %>/stargazers",
+              "contributors_url": "https://api.github.com/repos/<%= repo_name %>/contributors",
+              "subscribers_url": "https://api.github.com/repos/<%= repo_name %>/subscribers",
+              "subscription_url": "https://api.github.com/repos/<%= repo_name %>/subscription",
+              "commits_url": "https://api.github.com/repos/<%= repo_name %>/commits{/sha}",
+              "git_commits_url": "https://api.github.com/repos/<%= repo_name %>/git/commits{/sha}",
+              "comments_url": "https://api.github.com/repos/<%= repo_name %>/comments{/number}",
+              "issue_comment_url": "https://api.github.com/repos/<%= repo_name %>/issues/comments{/number}",
+              "contents_url": "https://api.github.com/repos/<%= repo_name %>/contents/{+path}",
+              "compare_url": "https://api.github.com/repos/<%= repo_name %>/compare/{base}...{head}",
+              "merges_url": "https://api.github.com/repos/<%= repo_name %>/merges",
+              "archive_url": "https://api.github.com/repos/<%= repo_name %>/{archive_format}{/ref}",
+              "downloads_url": "https://api.github.com/repos/<%= repo_name %>/downloads",
+              "issues_url": "https://api.github.com/repos/<%= repo_name %>/issues{/number}",
+              "pulls_url": "https://api.github.com/repos/<%= repo_name %>/pulls{/number}",
+              "milestones_url": "https://api.github.com/repos/<%= repo_name %>/milestones{/number}",
+              "notifications_url": "https://api.github.com/repos/<%= repo_name %>/notifications{?since,all,participating}",
+              "labels_url": "https://api.github.com/repos/<%= repo_name %>/labels{/name}",
+              "releases_url": "https://api.github.com/repos/<%= repo_name %>/releases{/id}",
+              "created_at": "2015-02-19T02:10:18Z",
+              "updated_at": "2015-02-19T15:06:30Z",
+              "pushed_at": "2015-03-01T00:21:25Z",
+              "git_url": "git://github.com/<%= repo_name %>.git",
+              "ssh_url": "git@github.com:<%= repo_name %>.git",
+              "clone_url": "https://github.com/<%= repo_name %>.git",
+              "svn_url": "https://github.com/<%= repo_name %>",
+              "homepage": null,
+              "size": 148,
+              "stargazers_count": 0,
+              "watchers_count": 0,
+              "language": "Ruby",
+              "has_issues": true,
+              "has_downloads": true,
+              "has_wiki": true,
+              "has_pages": false,
+              "forks_count": 0,
+              "mirror_url": null,
+              "open_issues_count": 2,
+              "forks": 0,
+              "open_issues": 2,
+              "watchers": 0,
+              "default_branch": "master"
+            },
+            "pull_request": {
+              "url": "https://api.github.com/repos/<%= repo_name %>/pulls/1",
+              "html_url": "https://github.com/<%= repo_name %>/pull/1",
+              "diff_url": "https://github.com/<%= repo_name %>/pull/1.diff",
+              "patch_url": "https://github.com/<%= repo_name %>/pull/1.patch"
+            },
+            "body": "A continuation of [this exampleorg PR](https://github.com/exampleorg/exampleorg/pull/614).\r\n\r\n- [x] List open PRs with 'LGTM' or 'looks good to me' in a comment\r\n- [ ] On PR submission, ask someone to confirm he/she can look at a PR, then:\r\n  - YES: add a comment to the PR saying \"[at]person to review\"\r\n  - NO: ask someone else\r\n  - [ ] Explore what kind of permissions the bot user needs"
+          }
+        ]
+    http_version: 
+  recorded_at: Sun, 01 Mar 2015 18:59:23 GMT
+recorded_with: VCR 2.9.3
