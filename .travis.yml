@@ -3,3 +3,4 @@ rvm:
   - 2.2.0
 services:
   - redis-server
+sudo: false
