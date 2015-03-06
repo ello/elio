@@ -8,6 +8,7 @@ gem 'unicorn'
 gem 'octokit'
 
 group :development, :test do
+  gem 'rake'
   gem 'pry'
 end
 
