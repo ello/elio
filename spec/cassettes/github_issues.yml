@@ -234,7 +234,18 @@ http_interactions:
               "type": "User",
               "site_admin": false
             },
-            "labels": [ ],
+            "labels": [<%=
+              labels.map do |label_name|
+                <<-LABEL_JSON
+                  {
+                    "url": "https://api.github.com/repos/exampleorg/elio/labels/#{label_name}",
+                    "name": "#{label_name}",
+                    "color": "84b6eb"
+                  }
+                LABEL_JSON
+              end.join(",".rjust(30)) if defined?(labels)
+            %>
+            ],
             "state": "open",
             "locked": false,
             "assignee": null,

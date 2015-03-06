@@ -7,11 +7,12 @@ describe Elio::Responders::GithubResponder do
     let(:issue_comment_text) { nil }
     let(:github_oauth_token) { 'abcdef123456789abcdef123456789abcdef1234' }
     let(:issues_cassette_params) do
-      { auth: github_oauth_token, repo_name: repo_name }
+      { auth: github_oauth_token, repo_name: repo_name, labels: labels }
     end
     let(:comments_cassette_params) do
       { auth: github_oauth_token, comment_text: issue_comment_text, repo_name: repo_name }
     end
+    let(:labels) { [] }
 
     # Bitbot
     let(:message)              { Bitbot::Message.new(text: 'pulls', user_name: 'archer') }
@@ -80,6 +81,22 @@ describe Elio::Responders::GithubResponder do
             color: "#afafaf",
             text: "by exampleuser"
           )
+        end
+      end
+
+      context "And the PR has labels" do
+        let(:labels) { ["enhancement", "pancakes"] }
+
+        it 'includes the labels in the list' do
+          with_cassettes do
+            expect(response_text).to match /PRs in need of review/
+            expect(response_attachments).to include(
+              title: "exampleorg/elio #1: Issue w/PR",
+              title_link: "https://github.com/exampleorg/elio/pull/1",
+              color: "#afafaf",
+              text: "by exampleuser - #enhancement #pancakes"
+            )
+          end
         end
       end
     end

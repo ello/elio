@@ -51,11 +51,16 @@ module Elio
             )
 
             message.attachments = pulls_to_review.map do |pr|
+              text = "by #{pr.author}"
+              if !pr.labels.empty?
+                label_names = pr.labels.map { |l| "##{l}" }
+                text += " - #{label_names.join(" ")}"
+              end
               {
                 title: "#{pr.repo_name} ##{pr.number}: #{pr.title}",
                 title_link: pr.url,
                 color: '#afafaf',
-                text: "by #{pr.author}"
+                text: text
               }
             end
 
@@ -127,6 +132,10 @@ module Elio
             @comments ||= @client.issue_comments(repo_name, number).map do |comment|
               Comment.new(comment)
             end
+          end
+
+          def labels
+            @attributes.labels.map(&:name)
           end
 
           def reviewed?(reviewed_words)
