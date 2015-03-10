@@ -166,7 +166,7 @@ module Elio
 
             def lgtm?(reviewed_words)
               reviewed_words.any? do |word|
-                !!(body =~ /#{word}/i)
+                !!(body =~ /#{Regexp.quote(word)}/i)
               end
             end
           end

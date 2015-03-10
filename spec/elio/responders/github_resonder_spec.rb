@@ -22,10 +22,11 @@ describe Elio::Responders::GithubResponder do
 
     # Various
     let(:repo_name) { "exampleorg/elio" }
+    let(:reviewed_words) { ["lgtm"] }
 
     before do
       allow_any_instance_of(Elio::Responders::GithubResponder::RedisHelper).
-        to receive_messages(get_repos: [repo_name], reviewed_words: ["lgtm"])
+        to receive_messages(get_repos: [repo_name], reviewed_words: reviewed_words)
       set_env_oauth_token
     end
 
@@ -61,7 +62,7 @@ describe Elio::Responders::GithubResponder do
       end
     end
 
-    context "when there are no open PRs" do
+    context 'when there are no open PRs' do
       it 'provides helpful feedback' do
         with_cassettes issues_cassette: :github_no_issues do
           expect(response_text).to match /No open PRs/i
@@ -84,7 +85,7 @@ describe Elio::Responders::GithubResponder do
         end
       end
 
-      context "And the PR has labels" do
+      context "and the PR has labels" do
         let(:labels) { ["enhancement", "pancakes"] }
 
         it 'includes the labels in the list' do
@@ -97,6 +98,17 @@ describe Elio::Responders::GithubResponder do
               text: "by exampleuser - #enhancement #pancakes"
             )
           end
+        end
+      end
+    end
+
+    context 'when reviewed words contain regex special characters' do
+      let(:reviewed_words) { [':+1'] }
+      let(:issue_comment_text) { ':+1:' }
+
+      it 'correctly identifies lgtm comments' do
+        with_cassettes do
+          expect(response_text).to match /All open PRs have been reviewed/i
         end
       end
     end
