@@ -8,3 +8,7 @@ Bitbot.configure do |config|
 end
 
 Pry.config.prompt_name = "elio"
+
+def octokit_client
+  @client ||= Octokit::Client.new(access_token: ENV['ELIO_GITHUB_OAUTH_TOKEN'])
+end
