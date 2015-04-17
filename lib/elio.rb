@@ -14,6 +14,7 @@ $:.unshift(Elio.root.to_s) unless $:.include?(Elio.root.to_s)
 
 require 'elio/version'
 require 'elio/responders/github_responder'
+require 'elio/responders/qa_responder'
 
 Bitbot.configure do |config|
 
