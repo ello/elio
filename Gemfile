@@ -6,11 +6,8 @@ gem 'rack'
 gem 'bitbot', github: 'modeset/bitbot'
 gem 'unicorn'
 gem 'octokit'
-
-group :development, :test do
-  gem 'rake'
-  gem 'pry'
-end
+gem 'rake'
+gem 'pry'
 
 group :test do
   gem 'rspec'
