@@ -51,15 +51,14 @@ module Elio
       route :pulls, /^pulls$/ do
         if redis.reviewed_words.nil? || redis.reviewed_words.empty?
           respond_with "Sorry #{message.user_name}, I don't know what to look for in PR comments. Add some words with 'add reviewed word <WORD>'"
-        elsif redis.review_tags.nil? || redis.review_tags.empty?
-          respond_with "Sorry #{message.user_name}, you need to add at least one review tag for me to look for PRs with. Add one with 'add review tag <tag name>'"
         elsif redis.get_repos.nil? || redis.get_repos.empty?
           respond_with "Sorry #{message.user_name}, I don't know about any repositories yet. Add some with 'add repo <OWNER>/<REPO>'"
         else
           pulls = PullRequestCollection.fetch(redis.get_repos)
-          pulls_to_review = pulls.
-            reject { |pr| pr.reviewed?(redis.reviewed_words) }.
-            select { |pr| pr.matches_at_least_one_tag?(redis.review_tags) }
+          pulls_to_review = pulls.reject { |pr| pr.reviewed?(redis.reviewed_words) }
+          unless redis.review_tags.nil? || redis.review_tags.empty?
+            pulls_to_review = pulls_to_review.select { |pr| pr.matches_at_least_one_tag?(redis.review_tags) }
+          end
 
           if pulls.empty?
             respond_with "There are no open PRs at the moment."
