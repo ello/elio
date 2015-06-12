@@ -26,7 +26,7 @@ describe Elio::Responders::GithubResponder do
 
     before do
       allow_any_instance_of(Elio::Responders::GithubResponder::RedisHelper).
-        to receive_messages(get_repos: [repo_name], reviewed_words: reviewed_words)
+        to receive_messages(get_repos: [repo_name], reviewed_words: reviewed_words, review_tags: [])
       set_env_oauth_token
     end
 

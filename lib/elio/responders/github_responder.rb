@@ -11,6 +11,22 @@ module Elio
       help 'reviewed words', description: 'List the words I use to check PRs for review status.'
       help 'add reviewed word', description: 'Add a "looks good" word.'
       help 'remove reviewed word', description: 'Remove a "looks good" word.'
+      help 'add review tag', description: 'Add a tag to identify PRs that need review (spaces are fine)'
+      help 'review tags', description: 'List tags that identify PRs that need review'
+
+      route :review_tags, /^review tags$/ do
+        if redis.review_tags.nil? || redis.review_tags.empty?
+          respond_with "Looks like you haven't added any. Add some with 'add review tag <tag name>' (spaces are fine)."
+        else
+          respond_with "Review tags:\n\n```#{redis.review_tags.join("\n")}```"
+        end
+      end
+
+      route :add_review_tag, /^add review tag (.*)$/ do |tag_name|
+        redis.add_review_tag(tag_name)
+
+        respond_with "Okay #{tag_name}, I added '#{tag_name}' to the review tags list."
+      end
 
       route :reviewed_words, /^reviewed words$/ do
         if redis.reviewed_words.nil? || redis.reviewed_words.empty?
@@ -40,6 +56,9 @@ module Elio
         else
           pulls = PullRequestCollection.fetch(redis.get_repos)
           pulls_to_review = pulls.reject { |pr| pr.reviewed?(redis.reviewed_words) }
+          unless redis.review_tags.nil? || redis.review_tags.empty?
+            pulls_to_review = pulls_to_review.select { |pr| pr.matches_at_least_one_tag?(redis.review_tags) }
+          end
 
           if pulls.empty?
             respond_with "There are no open PRs at the moment."
@@ -142,6 +161,10 @@ module Elio
             comments.any? { |c| c.lgtm?(reviewed_words) }
           end
 
+          def matches_at_least_one_tag?(tags)
+            !(labels & tags).empty?
+          end
+
           def repo_name
             repository.full_name
           end
@@ -176,9 +199,18 @@ module Elio
       class RedisHelper
         REPOS_KEY = 'elio:repos'
         REVIEWED_WORDS_KEY = 'elio:reviewed_words'
+        REVIEW_TAGS_KEY = 'elio:review_tags'
 
         def initialize(connection)
           @connection = connection
+        end
+
+        def review_tags
+          @connection.smembers(REVIEW_TAGS_KEY)
+        end
+
+        def add_review_tag(tag)
+          @connection.sadd(REVIEW_TAGS_KEY, tag)
         end
 
         def get_repos
